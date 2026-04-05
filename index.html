@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>「GREED」メ 𝙼𝚊𝚁𝙻𝚘𝙽</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Courier+Prime:wght@400;700&family=VT323&family=Creepster&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: #f0f2f5;
+        }
+
+        /* ============================================
+           HAPPY MODE (Normal)
+           ============================================ */
+        body.happy-mode {
+            background: linear-gradient(135deg, #f0f2f5 0%, #e4e7eb 100%);
+            animation: none;
+        }
+
+        /* ============================================
+           SAD TEXT STREAM CONTAINER
+           ============================================ */
+        .text-stream-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            display: none;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        body.sad-mode .text-stream-container {
+            display: block;
+        }
+
+        .text-column {
+            position: absolute;
+            top: -100%;
+            width: 120px;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            line-height: 1.4;
+            text-align: center;
+            opacity: 0.7;
+            animation: scrollDown linear infinite;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        @keyframes scrollDown {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(200vh); }
+        }
+
+        /* ============================================
+           HELL BACKGROUND
+           ============================================ */
+        .hell-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            display: none;
+            background: radial-gradient(ellipse at center, #3a0000 0%, #000000 70%);
+        }
+
+        body.sad-mode .hell-bg {
+            display: block;
+            animation: hellPulse 4s infinite;
+        }
+
+        @keyframes hellPulse {
+            0%, 100% { 
+                background: radial-gradient(ellipse at center, #4a0000 0%, #000000 70%);
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                background: radial-gradient(ellipse at center, #6a0000 0%, #1a0000 70%);
+                filter: hue-rotate(15deg);
+            }
+        }
+
+        /* Blood overlay */
+        .blood-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(139, 0, 0, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(178, 34, 34, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9990;
+            display: none;
+            animation: bloodMove 8s infinite;
+        }
+
+        body.sad-mode .blood-overlay {
+            display: block;
+        }
+
+        @keyframes bloodMove {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+            50% { transform: scale(1.1) rotate(2deg); opacity: 0.8; }
+        }
+
+        /* ============================================
+           GLITCH LAYERS (Mode Sedih)
+           ============================================ */
+        .glitch-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+            overflow: hidden;
+        }
+
+        body.sad-mode .glitch-container {
+            display: block;
+        }
+
+        .glitch-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            mix-blend-mode: screen;
+        }
+
+        .glitch-red {
+            background: rgba(139, 0, 0, 0.15);
+            animation: glitchRed 0.15s infinite;
+        }
+
+        .glitch-blue {
+            background: rgba(0, 0, 139, 0.1);
+            animation: glitchBlue 0.2s infinite;
+        }
+
+        .glitch-green {
+            background: rgba(0, 100, 0, 0.1);
+            animation: glitchGreen 0.18s infinite;
+        }
+
+        @keyframes glitchRed {
+            0%, 100% { transform: translate(0); opacity: 0; }
+            10% { transform: translate(-10px, 5px); opacity: 0.5; }
+            20% { transform: translate(10px, -5px); opacity: 0.2; }
+            30% { transform: translate(-5px, 0); opacity: 0.4; }
+            40% { transform: translate(5px, 5px); opacity: 0.1; }
+            50% { transform: translate(-8px, -3px); opacity: 0.6; }
+            60% { transform: translate(8px, 3px); opacity: 0.3; }
+            70% { transform: translate(-3px, 8px); opacity: 0.5; }
+            80% { transform: translate(3px, -8px); opacity: 0.2; }
+            90% { transform: translate(-5px, 5px); opacity: 0.4; }
+        }
+
+        @keyframes glitchBlue {
+            0%, 100% { transform: translate(0); opacity: 0; }
+            15% { transform: translate(8px, -5px); opacity: 0.3; }
+            30% { transform: translate(-8px, 5px); opacity: 0.1; }
+            45% { transform: translate(5px, 0); opacity: 0.4; }
+            60% { transform: translate(-5px, -8px); opacity: 0.2; }
+            75% { transform: translate(10px, 8px); opacity: 0.5; }
+            90% { transform: translate(-10px, -5px); opacity: 0.3; }
+        }
+
+        @keyframes glitchGreen {
+            0%, 100% { transform: translate(0); opacity: 0; }
+            20% { transform: translate(-6px, 8px); opacity: 0.25; }
+            40% { transform: translate(6px, -8px); opacity: 0.5; }
+            60% { transform: translate(-8px, -5px); opacity: 0.15; }
+            80% { transform: translate(8px, 5px); opacity: 0.4; }
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(139, 0, 0, 0.3) 50%,
+                rgba(139, 0, 0, 0.3)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9998;
+            display: none;
+            animation: scrollScanlines 5s linear infinite;
+        }
+
+        body.sad-mode .scanlines {
+            display: block;
+        }
+
+        @keyframes scrollScanlines {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        /* ============================================
+           TOGGLE BUTTON
+           ============================================ */
+        .mode-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            background: #000;
+            cursor: pointer;
+            z-index: 10000;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.2s steps(3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mode-toggle-btn:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .toggle-btn-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.1s steps(2);
+        }
+
+        /* Mode Sad - Button EXTREME Error Effect */
+        body.sad-mode .mode-toggle-btn {
+            border-color: #ff0000;
+            border-radius: 0;
+            transform: rotate(5deg) scale(0.9);
+            animation: buttonExtremeGlitch 0.5s infinite steps(2);
+            filter: contrast(2) brightness(0.6) hue-rotate(0deg);
+            clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 5% 100%);
+            box-shadow: 
+                0 0 20px rgba(255, 0, 0, 0.8),
+                inset 0 0 20px rgba(139, 0, 0, 0.5);
+        }
+
+        @keyframes buttonExtremeGlitch {
+            0%, 100% { 
+                transform: rotate(5deg) scale(0.9) translate(0, 0);
+                clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 5% 100%);
+                filter: contrast(2) brightness(0.6);
+            }
+            10% { 
+                transform: rotate(8deg) scale(0.85) translate(-5px, 3px);
+                clip-path: polygon(15% 5%, 85% 0%, 95% 90%, 0% 85%);
+                filter: contrast(3) brightness(0.4) hue-rotate(90deg);
+            }
+            20% { 
+                transform: rotate(2deg) scale(0.95) translate(5px, -3px);
+                clip-path: polygon(5% 10%, 95% 15%, 90% 80%, 10% 95%);
+                filter: contrast(2.5) brightness(0.8) hue-rotate(-90deg);
+            }
+            30% { 
+                transform: rotate(12deg) scale(0.8) translate(-8px, 5px);
+                clip-path: polygon(20% 0%, 80% 10%, 100% 75%, 15% 90%);
+                filter: contrast(4) brightness(0.3);
+            }
+            40% { 
+                transform: rotate(-3deg) scale(1) translate(8px, -5px);
+                clip-path: polygon(0% 20%, 100% 5%, 85% 100%, 10% 85%);
+                filter: contrast(2) brightness(0.5) hue-rotate(180deg);
+            }
+            50% { 
+                transform: rotate(5deg) scale(0.9) translate(0, 0);
+                clip-path: polygon(10% 0%, 90% 5%, 100% 85%, 5% 100%);
+                filter: contrast(2) brightness(0.6);
+            }
+            60% { 
+                transform: rotate(-8deg) scale(0.88) translate(-3px, 8px);
+                filter: contrast(3.5) brightness(0.4) hue-rotate(45deg);
+            }
+            70% { 
+                transform: rotate(15deg) scale(0.82) translate(3px, -8px);
+                filter: contrast(2.2) brightness(0.7) hue-rotate(-45deg);
+            }
+            80% { 
+                transform: rotate(0deg) scale(0.92) translate(-6px, 2px);
+                filter: contrast(4) brightness(0.3);
+            }
+            90% { 
+                transform: rotate(10deg) scale(0.87) translate(6px, -2px);
+                filter: contrast(2.8) brightness(0.5) hue-rotate(135deg);
+            }
+        }
+
+        /* ============================================
+           CARD STYLES
+           ============================================ */
+        .card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-icon { margin-bottom: 15px; }
+        .card h1 { font-size: 22px; margin-bottom: 10px; color: #1c1e21; font-weight: 700; }
+        .card p { font-size: 15px; color: #606770; margin-bottom: 30px; line-height: 1.5; }
+
+        .wa-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 14px 24px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 80%;
+            transition: all 0.3s;
+        }
+
+        .wa-btn:hover { background-color: #128C7E; transform: scale(1.05); }
+
+        /* ============================================
+           SAD MODE - EXTREME ERROR
+           ============================================ */
+        body.sad-mode {
+            background: #1a0000;
+            animation: bodyExtremeGlitch 0.3s infinite;
+            cursor: none;
+        }
+
+        @keyframes bodyExtremeGlitch {
+            0%, 100% { background: #1a0000; }
+            25% { background: #2a0000; }
+            50% { background: #0f0000; }
+            75% { background: #3a0000; }
+        }
+
+        /* Card Error Effect - EXTREME */
+        body.sad-mode .card {
+            background: #0a0a0a;
+            border: 3px solid #ff0000;
+            border-radius: 0;
+            box-shadow: 
+                0 0 30px rgba(255, 0, 0, 0.6),
+                0 0 60px rgba(255, 0, 0, 0.3),
+                inset 0 0 50px rgba(139, 0, 0, 0.2);
+            animation: cardExtremeError 1.5s infinite steps(3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.sad-mode .card::before {
+            content: 'CRITICAL ERROR';
+            position: absolute;
+            top: 10px;
+            right: -35px;
+            background: #ff0000;
+            color: #000000;
+            font-size: 10px;
+            padding: 3px 35px;
+            transform: rotate(45deg);
+            font-family: 'Courier Prime', monospace;
+            font-weight: bold;
+            opacity: 0.9;
+            animation: errorFlicker 0.2s infinite;
+        }
+
+        body.sad-mode .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 0, 0, 0.03) 2px,
+                rgba(255, 0, 0, 0.03) 4px
+            );
+            pointer-events: none;
+            animation: staticNoise 0.1s infinite;
+        }
+
+        @keyframes errorFlicker {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes staticNoise {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        @keyframes cardExtremeError {
+            0%, 100% { 
+                transform: translate(0) skew(0deg) scale(1);
+                border-color: #ff0000;
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+            }
+            10% { 
+                transform: translate(-3px, 2px) skew(-2deg) scale(0.98);
+                border-color: #ff3333;
+                box-shadow: 0 0 40px rgba(255, 50, 50, 0.8);
+            }
+            20% { 
+                transform: translate(3px, -2px) skew(2deg) scale(1.02);
+                border-color: #ff0000;
+            }
+            30% { 
+                transform: translate(-2px, 3px) skew(1deg) scale(0.99);
+                border-color: #ff3333;
+                box-shadow: 0 0 50px rgba(255, 0, 0, 0.9);
+            }
+            40% { 
+                transform: translate(2px, -3px) skew(-1deg) scale(1.01);
+                border-color: #ff0000;
+            }
+            50% { 
+                transform: translate(0) skew(0deg) scale(1);
+                border-color: #ff0000;
+            }
+            60% { 
+                transform: translate(5px, 0) skew(-3deg) scale(0.97);
+                border-color: #ff3333;
+            }
+            70% { 
+                transform: translate(-5px, 0) skew(3deg) scale(1.03);
+                border-color: #ff0000;
+            }
+            80% { 
+                transform: translate(0, 3px) skew(0deg) scale(0.98);
+                border-color: #ff3333;
+            }
+            90% { 
+                transform: translate(0, -3px) skew(0deg) scale(1.02);
+                border-color: #ff0000;
+            }
+        }
+
+        /* Content Sad - WARNA Teks Diperbaiki untuk Kontras Tinggi */
+        .sad-content {
+            display: none;
+            font-family: 'Courier Prime', monospace;
+            color: #ffffff;
+        }
+
+        body.sad-mode .happy-content { display: none; }
+        body.sad-mode .sad-content { display: block; }
+
+        .error-code {
+            font-size: 12px;
+            color: #ff0000;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+            font-weight: bold;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000;
+            animation: errorCodeFlicker 0.5s infinite alternate;
+        }
+
+        @keyframes errorCodeFlicker {
+            0%, 100% { 
+                opacity: 1; 
+                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+            }
+            50% { 
+                opacity: 0.8; 
+                text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000;
+            }
+        }
+
+        .sad-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: iconCorrupt 1s infinite steps(2);
+            filter: grayscale(100%) brightness(0.8) sepia(1) hue-rotate(-50deg) saturate(5);
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+        }
+
+        @keyframes iconCorrupt {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(10deg); filter: invert(1); }
+            50% { transform: scale(0.8) rotate(-10deg); }
+            75% { transform: scale(1.1) rotate(5deg); filter: invert(0.5); }
+        }
+
+        .sad-title {
+            font-size: 32px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin-bottom: 25px;
+            position: relative;
+            animation: titleGlitch 2s infinite;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 40px #ff0000,
+                0 0 80px #ff0000;
+            font-family: 'Creepster', cursive;
+            font-weight: bold;
+        }
+
+        @keyframes titleGlitch {
+            0%, 100% { 
+                opacity: 1;
+                transform: translate(0);
+                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+            }
+            10% { 
+                opacity: 0.9;
+                transform: translate(-2px, 1px);
+                text-shadow: -2px 0 #ff0000, 2px 0 #ff6666, 0 0 30px #ff0000;
+            }
+            20% { 
+                opacity: 1;
+                transform: translate(2px, -1px);
+                letter-spacing: 12px;
+                text-shadow: 2px 0 #ff0000, -2px 0 #ff3333, 0 0 50px #ff0000;
+            }
+            30% { 
+                opacity: 0.85;
+                transform: translate(-1px, 1px);
+                text-shadow: -1px 0 #ff0000, 1px 0 #000000, 0 0 40px #ff0000;
+            }
+            40% { 
+                opacity: 1;
+                transform: translate(1px, -1px);
+                letter-spacing: 8px;
+                text-shadow: 3px 0 #ff0000, -3px 0 #000000, 0 0 30px #ff0000;
+            }
+            50% { 
+                opacity: 0.95;
+                transform: translate(0);
+                text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+            }
+            60% { 
+                opacity: 0.8;
+                transform: translate(-3px, 2px);
+                text-shadow: -3px 0 #ff0000, 3px 0 #ff3333, 0 0 60px #ff0000;
+            }
+            70% { 
+                opacity: 1;
+                transform: translate(3px, -2px);
+                letter-spacing: 10px;
+            }
+            80% { 
+                opacity: 0.9;
+                transform: translate(-1px, 1px);
+                text-shadow: -1px 0 #000000, 1px 0 #ff0000, 0 0 40px #ff0000;
+            }
+            90% { 
+                opacity: 1;
+                transform: translate(1px, -1px);
+            }
+        }
+
+        .sad-desc {
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 2;
+            margin-bottom: 30px;
+            opacity: 1;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .sad-desc span {
+            color: #ff0000;
+            font-size: 11px;
+            animation: warningFlicker 0.3s infinite;
+            text-shadow: 0 0 10px #ff0000;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        @keyframes warningFlicker {
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px #ff0000; }
+            50% { opacity: 0.3; text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; }
+        }
+
+        /* Tombol Sad dengan Gambar Error - EXTREME */
+        .sad-btn {
+            background: #000000;
+            border: 3px solid #ff0000;
+            color: #ffffff;
+            padding: 18px 30px;
+            font-family: 'Creepster', cursive;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: btnExtremeGlitch 1s infinite steps(2);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+            box-shadow: 
+                0 0 20px rgba(255, 0, 0, 0.6),
+                inset 0 0 20px rgba(139, 0, 0, 0.3);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            font-weight: bold;
+        }
+
+        .sad-btn:hover {
+            background: #ff0000;
+            color: #000000;
+            animation: btnGlitchFast 0.3s infinite;
+            box-shadow: 
+                0 0 40px rgba(255, 0, 0, 0.9),
+                inset 0 0 30px rgba(0, 0, 0, 0.5);
+            text-shadow: none;
+        }
+
+        @keyframes btnExtremeGlitch {
+            0%, 100% { 
+                transform: translate(0); 
+                clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+                border-color: #ff0000;
+            }
+            10% { 
+                transform: translate(-3px, 2px); 
+                clip-path: polygon(5% 0, 95% 5%, 90% 95%, 0% 100%);
+                border-color: #ff3333;
+            }
+            20% { 
+                transform: translate(3px, -2px); 
+                clip-path: polygon(-2% 5%, 102% 0, 97% 100%, -3% 95%);
+                border-color: #ff0000;
+            }
+            30% { 
+                transform: translate(-2px, 3px); 
+                clip-path: polygon(3% 10%, 97% 0, 100% 90%, 2% 100%);
+                border-color: #ff3333;
+            }
+            40% { 
+                transform: translate(2px, -3px); 
+                clip-path: polygon(-5% 0, 105% 5%, 92% 100%, 5% 95%);
+                border-color: #ff0000;
+            }
+            50% { 
+                transform: translate(0); 
+                clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+                border-color: #ff0000;
+            }
+            60% { 
+                transform: translate(-4px, 1px); 
+                clip-path: polygon(8% 5%, 92% 0, 98% 95%, 0% 90%);
+                border-color: #ff3333;
+            }
+            70% { 
+                transform: translate(4px, -1px); 
+                clip-path: polygon(-3% 8%, 103% 3%, 95% 98%, 3% 92%);
+                border-color: #ff0000;
+            }
+            80% { 
+                transform: translate(-1px, 4px); 
+                clip-path: polygon(5% 0, 95% 10%, 90% 100%, 5% 90%);
+                border-color: #ff3333;
+            }
+            90% { 
+                transform: translate(1px, -4px); 
+                clip-path: polygon(0% 5%, 100% 0, 95% 95%, 5% 100%);
+                border-color: #ff0000;
+            }
+        }
+
+        @keyframes btnGlitchFast {
+            0%, 100% { transform: translate(0) scale(1); }
+            25% { transform: translate(-4px, 3px) scale(1.05); }
+            50% { transform: translate(4px, -3px) scale(0.95); }
+            75% { transform: translate(-3px, -4px) scale(1.02); }
+        }
+
+        .sad-btn-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border: 2px solid #ff0000;
+            filter: grayscale(100%) contrast(2) brightness(0.5) sepia(1) hue-rotate(-50deg) saturate(4);
+            animation: imgExtremeCorrupt 0.3s infinite steps(2);
+            image-rendering: pixelated;
+        }
+
+        @keyframes imgExtremeCorrupt {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg); 
+                filter: grayscale(100%) contrast(2) brightness(0.5) sepia(1) hue-rotate(-50deg) saturate(4);
+            }
+            25% { 
+                transform: scale(1.2) rotate(5deg); 
+                filter: grayscale(100%) contrast(3) brightness(0.3) sepia(1) hue-rotate(-30deg) saturate(5) invert(0.3);
+            }
+            50% { 
+                transform: scale(0.9) rotate(-5deg); 
+                filter: grayscale(100%) contrast(4) brightness(0.2) sepia(1) hue-rotate(-70deg) saturate(6);
+            }
+            75% { 
+                transform: scale(1.1) rotate(3deg); 
+                filter: grayscale(100%) contrast(2.5) brightness(0.4) sepia(1) hue-rotate(-40deg) saturate(4.5) invert(0.2);
+            }
+        }
+
+        /* Image Switcher Container */
+        .glitch-image-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s steps(2);
+            overflow: hidden;
+        }
+
+        body.sad-mode .glitch-image-container {
+            opacity: 0.3;
+        }
+
+        .glitch-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(3) brightness(0.2) sepia(1) hue-rotate(-50deg) saturate(5);
+            image-rendering: pixelated;
+            animation: bgExtremeGlitch 0.15s infinite;
+        }
+
+        @keyframes bgExtremeGlitch {
+            0% { 
+                transform: translate(0); 
+                filter: grayscale(100%) contrast(3) brightness(0.2) sepia(1) hue-rotate(-50deg) saturate(5);
+            }
+            20% { 
+                transform: translate(8px, 0); 
+                filter: grayscale(100%) contrast(4) brightness(0.15) sepia(1) hue-rotate(-30deg) saturate(6) hue-rotate(90deg);
+            }
+            40% { 
+                transform: translate(-8px, 8px); 
+                filter: grayscale(100%) contrast(2) brightness(0.25) sepia(1) hue-rotate(-70deg) saturate(4);
+            }
+            60% { 
+                transform: translate(0, -8px); 
+                filter: grayscale(100%) contrast(5) brightness(0.1) sepia(1) hue-rotate(-40deg) saturate(7) hue-rotate(-90deg);
+            }
+            80% { 
+                transform: translate(5px, 5px); 
+                filter: grayscale(100%) contrast(3.5) brightness(0.18) sepia(1) hue-rotate(-60deg) saturate(5.5);
+            }
+            100% { 
+                transform: translate(0); 
+                filter: grayscale(100%) contrast(3) brightness(0.2) sepia(1) hue-rotate(-50deg) saturate(5);
+            }
+        }
+
+        /* Corruption Overlay */
+        .corruption-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(139, 0, 0, 0.05) 2px,
+                rgba(139, 0, 0, 0.05) 4px
+            );
+            pointer-events: none;
+            z-index: 9997;
+            display: none;
+            animation: corruptScroll 3s linear infinite;
+        }
+
+        body.sad-mode .corruption-overlay {
+            display: block;
+        }
+
+        @keyframes corruptScroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100vh; }
+        }
+
+        /* Vignette effect */
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            z-index: 9996;
+            display: none;
+        }
+
+        body.sad-mode .vignette {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .mode-toggle-btn { width: 60px; height: 60px; }
+            .sad-title { font-size: 24px; letter-spacing: 6px; }
+            body.sad-mode .card { margin: 20px; padding: 30px 20px; }
+            .text-column { width: 100px; font-size: 14px; }
+            .error-code { font-size: 10px; letter-spacing: 2px; }
+            .sad-desc { font-size: 12px; line-height: 1.8; }
+            .sad-btn { font-size: 14px; padding: 15px 20px; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="happy-mode">
+
+    <!-- Text Stream Container -->
+    <div class="text-stream-container" id="textStreamContainer"></div>
+
+    <!-- Hell Background -->
+    <div class="hell-bg"></div>
+
+    <!-- Blood Overlay -->
+    <div class="blood-overlay"></div>
+
+    <!-- Vignette -->
+    <div class="vignette"></div>
+
+    <!-- Glitch Layers -->
+    <div class="glitch-container">
+        <div class="glitch-layer glitch-red"></div>
+        <div class="glitch-layer glitch-blue"></div>
+        <div class="glitch-layer glitch-green"></div>
+    </div>
+
+    <!-- Scanlines -->
+    <div class="scanlines"></div>
+    
+    <!-- Corruption Overlay -->
+    <div class="corruption-overlay"></div>
+
+    <!-- Background Image Switcher -->
+    <div class="glitch-image-container" id="bgImageContainer">
+        <img src="tes.jpg" alt="" class="glitch-bg-image" id="glitchBgImage">
+    </div>
+
+    <!-- Toggle Button -->
+    <button class="mode-toggle-btn" onclick="toggleMode()" title="Beralih mode">
+        <img src="tes.jpg" alt="Toggle" class="toggle-btn-img" id="toggleImg" 
+             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjMjIyIi8+PC9zdmc+'">
+    </button>
+
+    <!-- Main Card -->
+    <div class="card">
+        <!-- Happy Mode -->
+        <div class="happy-content">
+            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="#25D366" class="bi bi-whatsapp whatsapp-icon" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+            </svg>
+            <h1>TOLONG GABUNG KE GRUB KITA ONEGAIII</h1>
+            <p>Silakan klik tombol di bawah ini untuk langsung bergabung ke dalam grup chat WhatsApp.</p>
+            <a href="https://chat.whatsapp.com/DnJ2rNgvU1R5duddxEGuPh?mode=gi_t" class="wa-btn" target="_blank" rel="noopener noreferrer">
+                Masuk Grup Chat
+            </a>
+        </div>
+
+        <!-- Sad Mode - EXTREME ERROR -->
+        <div class="sad-content">
+            <div class="error-code">[SYSTEM FAILURE: 0x800404]</div>
+            <div class="sad-icon">💀</div>
+            <h1 class="sad-title">KEHANCURAN</h1>
+            <p class="sad-desc">
+                kenapa namaku<br>
+                FILE: kebahagiaan.exe [TIDAK DITEMUKAN]<br>
+                STATUS: KEHAMPAAN ABADI<br>
+                <span>>> TEKAN TOMBOL UNTUK MENGHANCURKAN <<</span>
+            </p>
+            <button class="sad-btn" onclick="systemCrash()">
+                <img src="tes.jpg" alt="" class="sad-btn-img" id="sadBtnImg" 
+                     onerror="this.style.display='none'">
+                <span id="btnText">HANCURKAN</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Daftar kata-kata sedih Bahasa Indonesia
+        const sadTexts = [
+            "AKU MERASA HAMPA",
+            "KEHAMPAAN INI MEMBUNUHKU",
+            "TANPAMU HIDUPKU KOSONG",
+            "HATI YANG HAMPA",
+            "KEKOSONGAN ABADI",
+            "TAK ADA ARTI LAGI",
+            "MENGHILANG DALAM KEHAMPAAN",
+            "JIWA YANG MATI",
+            "KEHENINGAN MENGERIKAN",
+            "TAK BERNYAWA",
+            "HANCUR LEBUR",
+            "KEHANCURAN TOTAL",
+            "SISTEM RUSAK",
+            "TAK BISA DIPERBAIKI",
+            "HANCUR BERKEPING-KEPING",
+            "RUNTUH TOTAL",
+            "KEHANCURAN ABADI",
+            "TAK ADA HARAPAN",
+            "MUSNAH",
+            "LENYAP"
+        ];
+
+        const textColors = [
+            '#ff0000',
+            '#ff3333',
+            '#ff6666',
+            '#ff2222',
+            '#ff4444',
+            '#ff5555',
+            '#ff1111',
+            '#ff7777',
+            '#ff3333',
+            '#ff0000'
+        ];
+
+        const sadImages = [
+            'tes.jpg', 'tes.jpg', 'cortisol.jpg', 'marlon.jpg', 
+            'dyan.jpg', 'anime.jpg', 'cortisol.jpg', 'tes1.jpg'
+        ];
+
+        const bgImages = [
+            'tes.jpg', 'cortisol.jpg', 'marlon.jpg', 
+            'dyan.jpg', 'anime.jpg', 'cortisol.jpg', 'tes1.jpg'
+        ];
+
+        const btnTexts = [
+            'HANCURKAN', 'MUSNAHKAN', 'HAPUS', 'MATIKAN', 
+            'BUNUH', 'HILANGKAN', 'RUSAK', 'HANCUR'
+        ];
+
+        let isSadMode = false;
+        let imageInterval = null;
+        let bgInterval = null;
+        let textInterval = null;
+        let glitchInterval = null;
+        let textStreamInterval = null;
+
+        function createTextStream() {
+            const container = document.getElementById('textStreamContainer');
+            container.innerHTML = '';
+            const columnCount = Math.floor(window.innerWidth / 100);
+            
+            for (let i = 0; i < columnCount; i++) {
+                const column = document.createElement('div');
+                column.className = 'text-column';
+                column.style.left = (i * 100 + Math.random() * 50) + 'px';
+                column.style.animationDuration = (8 + Math.random() * 10) + 's';
+                column.style.animationDelay = (Math.random() * 5) + 's';
+                
+                let columnText = '';
+                const textCount = 15 + Math.floor(Math.random() * 10);
+                for (let j = 0; j < textCount; j++) {
+                    const text = sadTexts[Math.floor(Math.random() * sadTexts.length)];
+                    const color = textColors[Math.floor(Math.random() * textColors.length)];
+                    columnText += `<div style="color: ${color}; margin: 8px 0; text-shadow: 0 0 8px ${color};">${text}</div>`;
+                }
+                
+                column.innerHTML = columnText;
+                container.appendChild(column);
+            }
+        }
+
+        function updateTextStream() {
+            const columns = document.querySelectorAll('.text-column');
+            columns.forEach(column => {
+                if (Math.random() > 0.7) {
+                    const text = sadTexts[Math.floor(Math.random() * sadTexts.length)];
+                    const color = textColors[Math.floor(Math.random() * textColors.length)];
+                    const divs = column.querySelectorAll('div');
+                    if (divs.length > 0) {
+                        const randomDiv = divs[Math.floor(Math.random() * divs.length)];
+                        randomDiv.textContent = text;
+                        randomDiv.style.color = color;
+                        randomDiv.style.textShadow = `0 0 8px ${color}`;
+                    }
+                }
+            });
+        }
+
+        function toggleMode() {
+            isSadMode = !isSadMode;
+            document.body.className = isSadMode ? 'sad-mode' : 'happy-mode';
+
+            if (isSadMode) {
+                startExtremeGlitch();
+                createTextStream();
+                textStreamInterval = setInterval(updateTextStream, 500);
+            } else {
+                stopExtremeGlitch();
+                clearInterval(textStreamInterval);
+                document.getElementById('textStreamContainer').innerHTML = '';
+            }
+        }
+
+        function startExtremeGlitch() {
+            let imgIndex = 0;
+            const toggleImg = document.getElementById('toggleImg');
+            const sadBtnImg = document.getElementById('sadBtnImg');
+            const bgImage = document.getElementById('glitchBgImage');
+            const btnText = document.getElementById('btnText');
+
+            imageInterval = setInterval(() => {
+                imgIndex = (imgIndex + 1) % sadImages.length;
+                toggleImg.src = sadImages[imgIndex];
+                toggleImg.style.transform = `scale(${0.7 + Math.random() * 0.6}) rotate(${Math.random() * 30 - 15}deg)`;
+                toggleImg.style.filter = `grayscale(100%) contrast(${3 + Math.random() * 3}) brightness(${0.2 + Math.random() * 0.3}) sepia(1) hue-rotate(-50deg) saturate(5)`;
+                setTimeout(() => {
+                    toggleImg.style.transform = '';
+                    toggleImg.style.filter = '';
+                }, 80);
+            }, 400);
+
+            let sadImgIndex = 0;
+            setInterval(() => {
+                sadImgIndex = (sadImgIndex + 1) % sadImages.length;
+                if (sadBtnImg.style.display !== 'none') {
+                    sadBtnImg.src = sadImages[sadImgIndex];
+                }
+            }, 350);
+
+            let bgIndex = 0;
+            bgInterval = setInterval(() => {
+                bgIndex = (bgIndex + 1) % bgImages.length;
+                bgImage.src = bgImages[bgIndex];
+            }, 800);
+
+            let textIndex = 0;
+            textInterval = setInterval(() => {
+                textIndex = (textIndex + 1) % btnTexts.length;
+                btnText.textContent = btnTexts[textIndex];
+            }, 300);
+
+            glitchInterval = setInterval(() => {
+                triggerRandomGlitch();
+            }, 800);
+        }
+
+        function stopExtremeGlitch() {
+            clearInterval(imageInterval);
+            clearInterval(bgInterval);
+            clearInterval(textInterval);
+            clearInterval(glitchInterval);
+            document.getElementById('toggleImg').src = 'tes.jpg';
+            document.getElementById('glitchBgImage').src = '';
+        }
+
+        function triggerRandomGlitch() {
+            const card = document.querySelector('.card');
+            const clips = [
+                'polygon(10% 0%, 90% 5%, 100% 85%, 5% 100%)',
+                'polygon(0% 10%, 100% 0%, 90% 100%, 10% 90%)',
+                'polygon(5% 5%, 95% 0%, 100% 95%, 0% 100%)',
+                'polygon(0% 0%, 100% 10%, 90% 90%, 10% 100%)',
+                'polygon(15% 0%, 85% 5%, 95% 85%, 5% 95%)',
+                'polygon(5% 15%, 95% 0%, 100% 80%, 0% 100%)'
+            ];
+            card.style.clipPath = clips[Math.floor(Math.random() * clips.length)];
+            setTimeout(() => {
+                card.style.clipPath = '';
+            }, 100);
+        }
+
+        function systemCrash() {
+            const btn = document.querySelector('.sad-btn');
+            const card = document.querySelector('.card');
+            const body = document.body;
+            
+            btn.innerHTML = '<span style="color:#000; background:#ff0000; padding:5px; font-family: Creepster, cursive; font-size: 16px;">SISTEM HANCUR</span>';
+            
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    card.style.transform = `translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px) rotate(${Math.random() * 20 - 10}deg) scale(${0.9 + Math.random() * 0.2})`;
+                    body.style.background = i % 2 === 0 ? '#ff0000' : '#8b0000';
+                }, i * 50);
+            }
+            
+            setTimeout(() => {
+                alert('SISTEM TELAH HANCUR TOTAL\nKEHAMPAAN ABADI\nKODE ERROR: KEMATIAN_BERTAHAP\n\n[tes.jpg telah rusak]');
+                document.body.style.background = '#1a0000';
+                card.style.transform = '';
+            }, 1000);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isSadMode) return;
+            if (Math.random() > 0.9) {
+                const glitch = document.createElement('div');
+                glitch.style.position = 'fixed';
+                glitch.style.left = e.clientX + 'px';
+                glitch.style.top = e.clientY + 'px';
+                glitch.style.width = Math.random() * 100 + 20 + 'px';
+                glitch.style.height = Math.random() * 20 + 5 + 'px';
+                glitch.style.background = `rgba(${139 + Math.random() * 100}, 0, 0, ${0.3 + Math.random() * 0.4})`;
+                glitch.style.pointerEvents = 'none';
+                glitch.style.zIndex = '9999';
+                glitch.style.mixBlendMode = 'difference';
+                document.body.appendChild(glitch);
+                setTimeout(() => glitch.remove(), 150);
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (isSadMode) createTextStream();
+        });
+    </script>
+</body>
+</html>
